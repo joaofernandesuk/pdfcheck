@@ -45,7 +45,7 @@ function preUpload(event) {
 			var regexHeader = /%PDF-1.[0-7]/g;
       var matchHeader = regexHeader.exec(dataHeader);
       if (!matchHeader) {
-        document.getElementById("status").innerHTML = "<div class='warning'>Not a valid PDF file.</div>";
+        document.getElementById("pdfStatus").innerHTML = "<div class='warning'>Not a valid PDF file.</div>";
         return;
       }
 
