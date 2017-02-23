@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>pdfcheck</title>
+  <link rel="stylesheet" href="pdfcheck.css" />
 </head>
 <body>
-  <h1>pdfcheck</h1>
-  <form id="uploadForm">
-  	<label>Upload a PDF: <input type="file" id="fileUpload" name="file" /></label>
+
+  <h1>&lt;pdfcheck&gt;</h1>
+
+  <form>
+  	<label for="fileUpload">Upload a PDF:</label>
+    <input type="file" id="fileUpload" name="file" />
   </form>
 
-  <table>
-    <tbody>
-      <tr>
-        <th scope="row">Valid PDF file?</th>
-        <td id="pdfValid"></td>
-      </tr>
-      <tr>
-        <th scope="row">File Size</th>
-        <td id="pdfSize"></td>
-      </tr>
-      <tr>
-        <th scope="row">Tagged PDF?</th>
-        <td id="pdfTagged"></td>
-      </tr>
-      <tr>
-        <th scope="row">Marked PDF?</th>
-        <td id="pdfMarked"></td>
-      </tr>
-      <tr>
-        <th scope="row">Language set?</th>
-        <td id="pdfLang"></td>
-      </tr>
-    </tbody>
-  </table>
-  <div id="fileHeader"></div>
-  <div id="fileSize"></div>
+  <div id="status"></div>
+  <div id="pdfSize"></div>
+  <div id="pdfTagged"></div>
+  <div id="pdfMarked"></div>
+  <div id="pdfLang"></div>
+
   <script type="text/javascript" src="pdfcheck.js"></script>
+
 </body>
 </html>
