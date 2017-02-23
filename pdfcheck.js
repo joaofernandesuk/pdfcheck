@@ -46,7 +46,7 @@ function preUpload(event) {
       var matchHeader = regexHeader.exec(dataHeader);
       if (!matchHeader) {
         document.getElementById("pdfStatus").innerHTML = "<div class='warning'>Not a valid PDF file.</div>";
-        return;
+        //return;
       }
 
       // Display file size
