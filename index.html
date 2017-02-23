@@ -8,6 +8,33 @@
   <form id="uploadForm">
   	<label>Upload a PDF: <input type="file" id="fileUpload" name="file" /></label>
   </form>
+
+  <table>
+    <tbody>
+      <tr>
+        <th scope="row">Valid PDF?</th>
+        <td id="pdfValid"></td>
+      </tr>
+      <tr>
+        <th scope="row">Tagged PDF?</th>
+        <td id="pdfTagged"></td>
+      </tr>
+      <tr>
+        <th scope="row">Marked PDF?</th>
+        <td id="pdfMarked"></td>
+      </tr>
+      <tr>
+        <th scope="row">Language set?</th>
+        <td id="pdfLang"></td>
+      </tr>
+      <tr>
+        <th scope="row">File Size</th>
+        <td id="pdfSize"></td>
+      </tr>
+    </tbody>
+  </table>
+  <div id="fileHeader"></div>
+  <div id="fileSize"></div>
   <script type="text/javascript" src="pdfcheck.js"></script>
 </body>
 </html>

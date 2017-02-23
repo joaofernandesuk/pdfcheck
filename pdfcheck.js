@@ -34,26 +34,54 @@ function preUpload(event) {
 
 	// The file API supports the ability to reference multiple files in one <input> tag
 	var file = event.target.files[0];
-	console.log(file);
 	var reader = new FileReader();
 
 	attachEvent(reader, "load", (function(fileToCheck) {
 		return function (evt) {
-			var data = evt.target.result.substr(0, 256);
-			var regex = new RegExp("%PDF-1.[0-7]");
-			console.log(data);
-			if(data.match(regex)) {
-				alert(fileToCheck.name + " is a valid PDF File.");
+      var dataFull = evt.target.result;
+
+      // Check if valid PDF file (read first 8 bytes, match regex)
+      var dataHeader = dataFull.substr(0, 8);
+			var regexHeader = new RegExp("%PDF-1.[0-7]");
+      if(dataHeader.match(regexHeader)) {
+        document.getElementById("pdfValid").innerHTML = "Yes";
 			}
+      else {
+        document.getElementById("pdfValid").innerHTML = "No";
+      }
+
+      // Check if Lang is set, display value if set`
+      var regexLang = /Lang\((\S*)\)/g;
+      var matchLang = regexLang.exec(dataFull);
+      if (!!matchLang) {
+        document.getElementById("pdfLang").innerHTML = matchLang[1];
+      }
+      else {
+        document.getElementById("pdfLang").innerHTML = "Not set";
+      }
+
+      // Check if /MarkInfo<</Marked true>>
+      if (dataFull.indexOf("/MarkInfo<</Marked true>>") !== -1) {
+        document.getElementById("pdfMarked").innerHTML = "Yes";
+      }
+      else {
+        document.getElementById("pdfMarked").innerHTML = "No";
+      }
+
+      // Check if StructTreeRoot is set
+      var regexTree = /StructTreeRoot\s(\d*)\s(\d*)/g;
+      var matchTree = regexTree.exec(dataFull);
+      if (!!matchTree) {
+        document.getElementById("pdfTagged").innerHTML = "Yes, " + matchTree[1] + " tags";
+      }
+      else {
+        document.getElementById("pdfTagged").innerHTML = "No";
+      }
 		}
 	})(file));
 
-	var MBSize = file.size / 1024 / 1024;
-	if(MBSize > 10) {
-		if(!confirm(file.name + " is " + MBSize + "MB big, and may cause your browser to stop responding while it parses it.\nContinue?")) {
-			return;
-		}
-	}
+  var KBSize = Math.ceil(file.size / 1024);
+  document.getElementById("pdfSize").innerHTML = KBSize + " KB";
 	reader.readAsText(file);
 }
 
