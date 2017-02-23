@@ -90,6 +90,21 @@ function preUpload(event) {
       else {
         document.getElementById("pdfTagged").innerHTML = "<div class='failure'>Not tagged</div>";
       }
+
+      // Check DisplayDocTitle exists and whether true or false
+      var regexTitle = /\/DisplayDocTitle (true|false)/g;
+      var matchTitle = regexTitle.exec(dataFull);
+      if (!!matchTitle) {
+        if (matchTitle[1] == "true") {
+          document.getElementById("pdfTitle").innerHTML = "<div class='success'><span>Display Doc Title:</span> <strong>True</strong></div>";
+        }
+        else {
+          document.getElementById("pdfTitle").innerHTML = "<div class='warning'><span>Display Doc Title:</span> <strong>False</strong></div>";
+        }
+      }
+      else {
+        document.getElementById("pdfTitle").innerHTML = "<div class='failure'>Display Document Title not set</div>";
+      }
 		};
 	})(file));
 	reader.readAsText(file);
