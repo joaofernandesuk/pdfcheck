@@ -42,43 +42,53 @@ function preUpload(event) {
 
       // Check if valid PDF file (read first 8 bytes, match regex)
       var dataHeader = dataFull.substr(0, 8);
-			var regexHeader = /%PDF-1.[0-7]/g;
+			var regexHeader = /%PDF-(1.[0-7])/g;
       var matchHeader = regexHeader.exec(dataHeader);
       if (!matchHeader) {
-        document.getElementById("pdfStatus").innerHTML = "<div class='warning'>Not a valid PDF file.</div>";
+        document.getElementById("pdfStatus").innerHTML = "<div class='failure'>Not a valid PDF file.</div>";
         return;
+      }
+      else {
+        document.getElementById("pdfVersion").innerHTML = "<div class='default'><span>PDF Version:</span> <strong>" + matchHeader[1] + "</strong></div>";
       }
 
       // Display file size
       var KBSize = Math.ceil(file.size / 1024);
-      document.getElementById("pdfSize").innerHTML = "<div class='default'>File size: <strong>" + KBSize + " KB</strong></div>";
+      document.getElementById("pdfSize").innerHTML = "<div class='default'><span>File size:</span> <strong>" + KBSize + " KB</strong></div>";
 
       // Check if Lang is set, display value if set`
       var regexLang = /Lang\((\S*)\)/g;
       var matchLang = regexLang.exec(dataFull);
       if (!!matchLang) {
-        document.getElementById("pdfLang").innerHTML = "<div class='success'>Language: <strong>" + matchLang[1] + "</strong></div>";
+        document.getElementById("pdfLang").innerHTML = "<div class='success'><span>Language:</span> <strong>" + matchLang[1] + "</strong></div>";
       }
       else {
-        document.getElementById("pdfLang").innerHTML = "<div class='warning'>Language not set</div>";
+        document.getElementById("pdfLang").innerHTML = "<div class='failure'>Language not set</div>";
       }
 
-      // Check if /MarkInfo<</Marked true>>
-      if (dataFull.indexOf("/MarkInfo<</Marked true>>") !== -1) {
-        document.getElementById("pdfMarked").innerHTML = "<div class='success'>Marked: <strong>Yes</strong></div>";
+      // Check MarkInfo exists and whether true or false
+      var regexMarked = /\/MarkInfo\<\<\/Marked (true|false)/g;
+      var matchMarked = regexMarked.exec(dataFull);
+      if (!!matchMarked) {
+        if (matchMarked[1] == "true") {
+          document.getElementById("pdfMarked").innerHTML = "<div class='success'><span>Marked:</span> <strong>True</strong></div>";
+        }
+        else {
+          document.getElementById("pdfMarked").innerHTML = "<div class='warning'><span>Marked:</span> <strong>False</strong></div>";
+        }
       }
       else {
-        document.getElementById("pdfMarked").innerHTML = "<div class='warning'>Not marked</div>";
+        document.getElementById("pdfMarked").innerHTML = "<div class='failure'>Not marked</div>";
       }
 
       // Check if StructTreeRoot is set
       var regexTree = /StructTreeRoot\s(\d*)\s(\d*)/g;
       var matchTree = regexTree.exec(dataFull);
       if (!!matchTree) {
-        document.getElementById("pdfTagged").innerHTML = "<div class='success'>Tagged: <strong>Yes &mdash; " + matchTree[1] + " tags</strong></div>";
+        document.getElementById("pdfTagged").innerHTML = "<div class='success'><span>Tagged:</span> <strong>Yes (" + matchTree[1] + " tags)</strong></div>";
       }
       else {
-        document.getElementById("pdfTagged").innerHTML = "<div class='warning'>Not tagged</div>";
+        document.getElementById("pdfTagged").innerHTML = "<div class='failure'>Not tagged</div>";
       }
 		};
 	})(file));

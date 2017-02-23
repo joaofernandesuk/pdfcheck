@@ -23,10 +23,21 @@ form {
 label,
 input {
   display: block;
+  font-size: 1em;
   margin: .5em 0;
 }
 
+label {
+  font-size: 1.5em;
+}
+
+span {
+  display: inline-block;
+  width: 7em;
+}
+
 .default,
+.failure,
 .warning,
 .success {
   padding: .5em 1em;
@@ -37,8 +48,12 @@ input {
   background-color: #fff;
 }
 
-.warning {
+.failure {
   background-color: #d9534f;
+}
+
+.warning {
+  background-color: #f0ad4e;
 }
 
 .success {
