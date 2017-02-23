@@ -60,6 +60,10 @@ function preUpload(event) {
         document.getElementById("pdfVersion").innerHTML = "<div class='default'><span>PDF Version:</span> <strong>" + matchHeader[1] + "</strong></div>";
       }
 
+      // Display file name
+      var fileName = file.name;
+      document.getElementById("pdfName").innerHTML = "<strong>" + fileName + "</strong>";
+
       // Display file size
       var KBSize = Math.ceil(file.size / 1024);
       document.getElementById("pdfSize").innerHTML = "<div class='default'><span>File size:</span> <strong>" + KBSize + " KB</strong></div>";
