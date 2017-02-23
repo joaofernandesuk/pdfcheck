@@ -31,6 +31,14 @@ function supportsFileAPI() {
  * @param event
  */
 function preUpload(event) {
+  // clear existing fields
+  document.getElementById("pdfStatus").innerHTML = "";
+  document.getElementById("pdfVersion").innerHTML = "";
+  document.getElementById("pdfSize").innerHTML = "";
+  document.getElementById("pdfTagged").innerHTML = "";
+  document.getElementById("pdfMarked").innerHTML = "";
+  document.getElementById("pdfLang").innerHTML = "";
+  document.getElementById("pdfTitle").innerHTML = "";
 
 	// The file API supports the ability to reference multiple files in one <input> tag
 	var file = event.target.files[0];
