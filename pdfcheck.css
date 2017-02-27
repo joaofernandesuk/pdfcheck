@@ -31,9 +31,14 @@ label {
   font-size: 1.5em;
 }
 
-span {
+.attribute {
   display: inline-block;
   width: 10em;
+}
+
+.file-number {
+  color: #999;
+  font-weight: 400;
 }
 
 .default,
@@ -41,7 +46,7 @@ span {
 .warning,
 .success {
   padding: .5em 1em;
-  margin: .5em 0;
+  margin: .25em 0;
 }
 
 .default {
@@ -58,6 +63,11 @@ span {
 
 .success {
   background-color: #5cb85c;
+}
+
+.title {
+  margin-bottom: .5em;
+  margin-top: 1.5em;
 }
 
 div:empty {
