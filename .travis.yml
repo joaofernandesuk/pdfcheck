@@ -1,0 +1,18 @@
+language: node_js
+
+node_js: "stable"
+
+before_install:
+  - npm install -g grunt-cli
+  - npm install
+
+sudo: false
+
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+
+# safelist
+branches:
+  only:
+    - master
