@@ -1,4 +1,4 @@
-# pdfcheck
+# pdfcheck [![Build Status](https://travis-ci.org/CommunicateHealth/pdfcheck.svg?branch=master)](https://travis-ci.org/CommunicateHealth/pdfcheck)
 
 [https://communicatehealth.github.io/pdfcheck](https://communicatehealth.github.io/pdfcheck)
 
