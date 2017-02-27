@@ -1,0 +1,24 @@
+{
+  "name": "pdfcheck",
+  "version": "0.0.0",
+  "description": "Localized PDF attribute reporter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/communicatehealth/pdfcheck.git"
+  },
+  "bugs": "https://github.com/communicatehealth/pdfcheck/issues/",
+  "homepage": "https://communicatehealth.github.io/pdfcheck/",
+  "scripts": {
+    "test": "grunt travis"
+  },
+  "main": "index.html",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "load-grunt-tasks": "^3.5.2",
+    "time-grunt": "^1.4.0",
+    "grunt-dev-update": "^2.0.0"
+  },
+  "license": "MIT",
+  "author": "CommunicateHealth"
+}
