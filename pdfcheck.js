@@ -41,7 +41,9 @@ function preUpload(event) {
     var reader = new FileReader();
 
     function readFile(index) {
-      if( index >= files.length ) return;
+      if( index >= files.length ) {
+        return;
+      }
 
       var file = files[index];
       reader.onload = function(e) {
@@ -71,11 +73,11 @@ function preUpload(event) {
 
         // Display file size
         var fileSize = file.size / 1024 / 1024;
-        fileSize = +fileSize.toFixed(1)
-        var fileSizeSuffix = " MB"
+        fileSize = +fileSize.toFixed(1);
+        var fileSizeSuffix = " MB";
         var KBSize = Math.ceil(file.size / 1024);
         if (fileSize <= 1) {
-          var fileSize = KBSize;
+          fileSize = KBSize;
           fileSizeSuffix = " KB";
         }
         markup = "<span class='attribute'>File size:</span> <strong>" + fileSize + fileSizeSuffix + "</strong>";
@@ -106,10 +108,10 @@ function preUpload(event) {
         }
 
         // Check MarkInfo exists and whether true or false
-        var regexMarked = /\/MarkInfo\<\<\/Marked (true|false)/g;
+        var regexMarked = /\/MarkInfo<<\/Marked (true|false)/g;
         var matchMarked = regexMarked.exec(dataFull);
         if (!!matchMarked) {
-          if (matchMarked[1] == "true") {
+          if (matchMarked[1] === "true") {
             markup = "<span class='attribute'>Marked:</span> <strong>True</strong>";
             createDiv("report", "success", markup);
           }
@@ -127,7 +129,7 @@ function preUpload(event) {
         var regexTitle = /\/DisplayDocTitle (true|false)/g;
         var matchTitle = regexTitle.exec(dataFull);
         if (!!matchTitle) {
-          if (matchTitle[1] == "true") {
+          if (matchTitle[1] === "true") {
             markup = "<span class='attribute'>Display Doc Title:</span> <strong>True</strong>";
             createDiv("report", "success", markup);
           }
@@ -141,8 +143,8 @@ function preUpload(event) {
           createDiv("report", "failure", markup);
         }
 
-        readFile(index+1)
-      }
+        readFile(index+1);
+      };
       reader.readAsText(file);
     }
     readFile(0);
