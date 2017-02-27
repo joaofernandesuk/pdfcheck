@@ -32,125 +32,120 @@ function supportsFileAPI() {
  */
 function preUpload(event) {
 
-	// The file API supports the ability to reference multiple files in one <input> tag
-
-  var uploadedFileNum = event.target.files.length;
-  var file;
-  var i;
-  var j;
-  var pdfName;
-  var reader;
-
+  // Clear report area
   document.getElementById("report").innerHTML = "";
 
-  for (i = 0; i < uploadedFileNum; i++) {
-    file = event.target.files[i];
-    reader = new FileReader();
+  readmultifiles(event.target.files);
 
+  function readmultifiles(files) {
+    var reader = new FileReader();
 
-    attachEvent(reader, "load", (function(fileToCheck) {
+    function readFile(index) {
+      if( index >= files.length ) return;
 
-  		return function (evt) {
+      var file = files[index];
+      reader.onload = function(e) {
 
-        for (j = 0; j < uploadedFileNum; j++) {
+        // get file content
+        var dataFull = e.target.result;
+        var pdfName = file.name;
+        var fileNumber = index + 1;
 
-          var dataFull = evt.target.result;
+        // Display File Name
+        markup = "<strong><span class='file-number'>" + fileNumber + ".</span> " + pdfName + "</strong>";
+        createDiv("report", "title", markup);
 
-          // Display file name
-          //pdfName = evt.target.file.name;
-
-            pdfName = event.target.files[j].name;
-            markup = "<strong>" + pdfName + "</strong>";
-            createDiv("report", "title", markup);
-          // pdfName = "hi";
-          // console.log(event.target.files);
-          // console.log(i);
-          // console.log(file);
-          // markup = "<strong>" + pdfName + "</strong>";
-          // createDiv("report", "title", markup);
-
-          // Check if valid PDF file (read first 8 bytes, match regex)
-          var dataHeader = dataFull.substr(0, 8);
-    			var regexHeader = /%PDF-(1.[0-7])/g;
-          var matchHeader = regexHeader.exec(dataHeader);
-          if (!matchHeader) {
-            markup = "Not a valid PDF file.";
-            createDiv("report", "failure", markup);
-            return;
-          }
-          else {
-            markup = "<span>PDF Version:</span> <strong>" + matchHeader[1] + "</strong>";
-            createDiv("report", "default", markup);
-          }
-
-          // Display file size
-          var KBSize = Math.ceil(file.size / 1024);
-          markup = "<span>File size:</span> <strong>" + KBSize + " KB</strong>";
+        // Check if valid PDF file (read first 8 bytes, match regex)
+        var dataHeader = dataFull.substr(0, 8);
+  			var regexHeader = /%PDF-(1.[0-7])/g;
+        var matchHeader = regexHeader.exec(dataHeader);
+        if (!matchHeader) {
+          markup = "<span class='attribute'>PDF Version:</span> <strong>Not a valid PDF file</strong>";
+          createDiv("report", "failure", markup);
+          //return;
+        }
+        else {
+          markup = "<span class='attribute'>PDF Version:</span> <strong>" + matchHeader[1] + "</strong>";
           createDiv("report", "default", markup);
+        }
 
-          // Check if Lang is set, display value if set`
-          var regexLang = /Lang\((\S*)\)/g;
-          var matchLang = regexLang.exec(dataFull);
-          if (!!matchLang) {
-            markup = "<span>Language:</span> <strong>" + matchLang[1] + "</strong>";
+        // Display file size
+        var fileSize = file.size / 1024 / 1024;
+        fileSize = +fileSize.toFixed(1)
+        var fileSizeSuffix = " MB"
+        var KBSize = Math.ceil(file.size / 1024);
+        if (fileSize <= 1) {
+          var fileSize = KBSize;
+          fileSizeSuffix = " KB";
+        }
+        markup = "<span class='attribute'>File size:</span> <strong>" + fileSize + fileSizeSuffix + "</strong>";
+        createDiv("report", "default", markup);
+
+        // Check if StructTreeRoot is set
+        var regexTree = /StructTreeRoot\s(\d*)\s(\d*)/g;
+        var matchTree = regexTree.exec(dataFull);
+        if (!!matchTree) {
+          markup = "<span class='attribute'>Tagged:</span> <strong>Yes (" + matchTree[1] + " tags)</strong>";
+          createDiv("report", "success", markup);
+        }
+        else {
+          markup = "<span class='attribute'>Tagged:</span> <strong>No</strong>";
+          createDiv("report", "failure", markup);
+        }
+
+        // Check if Lang is set, display value if set`
+        var regexLang = /Lang\((\S*)\)/g;
+        var matchLang = regexLang.exec(dataFull);
+        if (!!matchLang) {
+          markup = "<span class='attribute'>Language:</span> <strong>" + matchLang[1] + "</strong>";
+          createDiv("report", "success", markup);
+        }
+        else {
+          markup = "<span class='attribute'>Language:</span> <strong>not set</strong>";
+          createDiv("report", "failure", markup);
+        }
+
+        // Check MarkInfo exists and whether true or false
+        var regexMarked = /\/MarkInfo\<\<\/Marked (true|false)/g;
+        var matchMarked = regexMarked.exec(dataFull);
+        if (!!matchMarked) {
+          if (matchMarked[1] == "true") {
+            markup = "<span class='attribute'>Marked:</span> <strong>True</strong>";
             createDiv("report", "success", markup);
           }
           else {
-            markup = "Language not set";
-            createDiv("report", "failure", markup);
-          }
-
-          // Check MarkInfo exists and whether true or false
-          var regexMarked = /\/MarkInfo\<\<\/Marked (true|false)/g;
-          var matchMarked = regexMarked.exec(dataFull);
-          if (!!matchMarked) {
-            if (matchMarked[1] == "true") {
-              markup = "<span>Marked:</span> <strong>True</strong>";
-              createDiv("report", "success", markup);
-            }
-            else {
-              markup = "<span>Marked:</span> <strong>False</strong>";
-              createDiv("report", "warning", markup);
-            }
-          }
-          else {
-            markup = "Not marked";
-            createDiv("report", "failure", markup);
-          }
-
-          // Check if StructTreeRoot is set
-          var regexTree = /StructTreeRoot\s(\d*)\s(\d*)/g;
-          var matchTree = regexTree.exec(dataFull);
-          if (!!matchTree) {
-            markup = "<span>Tagged:</span> <strong>Yes (" + matchTree[1] + " tags)</strong>";
-            createDiv("report", "success", markup);
-          }
-          else {
-            markup = "Not tagged";
-            createDiv("report", "failure", markup);
-          }
-
-          // Check DisplayDocTitle exists and whether true or false
-          var regexTitle = /\/DisplayDocTitle (true|false)/g;
-          var matchTitle = regexTitle.exec(dataFull);
-          if (!!matchTitle) {
-            if (matchTitle[1] == "true") {
-              markup = "<span>Display Doc Title:</span> <strong>True</strong>";
-              createDiv("report", "success", markup);
-            }
-            else {
-              markup = "<span>Display Doc Title:</span> <strong>False</strong>";
-              createDiv("report", "warning", markup);
-            }
-          }
-          else {
-            markup = "Display Document Title not set";
-            createDiv("report", "failure", markup);
+            markup = "<span class='attribute'>Marked:</span> <strong>False</strong>";
+            createDiv("report", "warning", markup);
           }
         }
-  		};
-  	})(file));
-  	reader.readAsText(file);
+        else {
+          markup = "<span class='attribute'>Marked:</span> <strong>No</strong>";
+          createDiv("report", "failure", markup);
+        }
+
+        // Check DisplayDocTitle exists and whether true or false
+        var regexTitle = /\/DisplayDocTitle (true|false)/g;
+        var matchTitle = regexTitle.exec(dataFull);
+        if (!!matchTitle) {
+          if (matchTitle[1] == "true") {
+            markup = "<span class='attribute'>Display Doc Title:</span> <strong>True</strong>";
+            createDiv("report", "success", markup);
+          }
+          else {
+            markup = "<span class='attribute'>Display Doc Title:</span> <strong>False</strong>";
+            createDiv("report", "warning", markup);
+          }
+        }
+        else {
+          markup = "<span class='attribute'>Display Doc Title</span> <strong>not set</strong>";
+          createDiv("report", "failure", markup);
+        }
+
+        readFile(index+1)
+      }
+      reader.readAsText(file);
+    }
+    readFile(0);
   }
 }
 
