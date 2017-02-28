@@ -7,21 +7,27 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   margin: 1em auto;
   max-width: 40em;
-  padding: 1em;
+  padding: 1em 2em 2em;
 }
 
 h1 {
   font-size: 3em;
   margin-top: 0;
+  text-align: center;
 }
 
 form {
+  background-color: #ddd;
   margin-bottom: 2em;
   margin-top: 2em;
+  outline: .25em dashed #fff;
+  outline-offset: -.75em;
+  padding: 3em 2em;
+  position: relative;
+  transition: outline-offset .15s ease-in-out, background-color .15s linear;
 }
 
-label,
-input {
+label, input {
   display: block;
   font-size: 1em;
   margin: .5em 0;
@@ -29,6 +35,7 @@ input {
 
 label {
   font-size: 1.5em;
+  text-align: center;
 }
 
 .attribute {
@@ -70,6 +77,42 @@ label {
   margin-top: 1.5em;
 }
 
-div:empty {
-  padding: 0;
+.upload-icon {
+  width: 100%;
+  height: 4em;
+  fill: #333;
+  display: block;
+  margin-bottom: 2em;
+}
+
+.is-dragover {
+  outline-offset: -1em;
+  outline-color: #ccc;
+  background-color: #fff;
+}
+
+
+.upload-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.upload-input + label {
+  text-align: center;
+}
+
+.upload-input + label strong {
+  color: #0071b3;
+  text-decoration: underline;
+}
+
+.upload-input + label:hover strong,
+.upload-input:focus + label strong,
+.upload-input.has-focus + label strong {
+  color: #001f3f;
+  cursor: pointer;
 }
