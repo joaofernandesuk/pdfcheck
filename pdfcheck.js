@@ -49,6 +49,7 @@ function preUpload(event) {
       reader.onload = function(e) {
 
         // get file content
+        var markup;
         var dataFull = e.target.result;
         var pdfName = file.name;
         var fileNumber = index + 1;
