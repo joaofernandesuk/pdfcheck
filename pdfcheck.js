@@ -137,7 +137,7 @@
           }
 
           // Check if Lang is set, display value if set`
-          var regexLang = /Lang\((\S*)\)/g;
+          var regexLang = /Lang((\<|\()\S*(\>|\)))/g;
           var matchLang = regexLang.exec(dataFull);
           if (!!matchLang) {
             markup = "<span class='attribute'>Language:</span> <strong>" + matchLang[1] + "</strong>";
