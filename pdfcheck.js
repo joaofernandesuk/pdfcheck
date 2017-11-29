@@ -140,6 +140,9 @@
           var regexLang = /Lang((<|\()\S*(>|\)))/g;
           var matchLang = regexLang.exec(dataFull);
           if (!!matchLang) {
+            if (matchLang[1] == "<656E2D5553>") {
+              matchLang[1] = "(en-US)";
+            }
             markup = "<span class='attribute'>Language:</span> <strong>" + matchLang[1] + "</strong>";
             createDiv("report", "success", markup);
           }
@@ -169,6 +172,8 @@
           // Check DisplayDocTitle exists and whether true or false
           var regexTitle = /\/DisplayDocTitle (true|false)/g;
           var matchTitle = regexTitle.exec(dataFull);
+          var regexDCTitle = /<dc:title>([\s\S]*?)<\/dc:title>/g;
+          var matchDCTitle = regexDCTitle.exec(dataFull);
           if (!!matchTitle) {
             if (matchTitle[1] === "true") {
               markup = "<span class='attribute'>Display Doc Title:</span> <strong>True</strong>";
@@ -178,6 +183,10 @@
               markup = "<span class='attribute'>Display Doc Title:</span> <strong>False</strong>";
               createDiv("report", "warning", markup);
             }
+          }
+          else if (!!matchDCTitle) {
+            markup = "<span class='attribute'>Confirm DC Title:</span> <strong>" + matchDCTitle[1] + "</strong>";
+            createDiv("report", "warning", markup);
           }
           else {
             markup = "<span class='attribute'>Display Doc Title</span> <strong>not set</strong>";
