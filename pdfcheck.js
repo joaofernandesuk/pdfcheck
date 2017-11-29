@@ -185,7 +185,7 @@
             }
           }
           else if (!!matchDCTitle) {
-            markup = "<span class='attribute'>Confirm DC Title:</span> <strong>" + matchDCTitle[1] + "</strong>";
+            markup = "<span class='attribute'>DC Title found - (manually inspect title in Acrobat):</span> <strong>" + matchDCTitle[1] + "</strong>";
             createDiv("report", "warning", markup);
           }
           else {
