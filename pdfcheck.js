@@ -140,7 +140,7 @@
           var regexLang = /Lang((<|\()\S*(>|\)))/g;
           var matchLang = regexLang.exec(dataFull);
           if (!!matchLang) {
-            if (matchLang[1] == "<656E2D5553>") {
+            if (matchLang[1] === "<656E2D5553>") {
               matchLang[1] = "(en-US)";
             }
             markup = "<span class='attribute'>Language:</span> <strong>" + matchLang[1] + "</strong>";
