@@ -193,6 +193,18 @@
             createDiv("report", "failure", markup);
           }
 
+          // Check for PDF/UA identifier
+          var regexPDFUA = /<pdfaSchema:prefix>pdfuaid<\/pdfaSchema:prefix>/g;
+          var matchPDFUA = regexPDFUA.exec(dataFull);
+          if (!!matchPDFUA) {
+            markup = "<span class='attribute'>PDF/UA identifier:</span> <strong>Yes</strong>";
+            createDiv("report", "success", markup);
+          }
+          else {
+            markup = "<span class='attribute'>PDF/UA identifier:</span> <strong>No</strong>";
+            createDiv("report", "failure", markup);
+          }
+
           readFile(index+1);
         };
         reader.readAsText(file);
