@@ -4,6 +4,13 @@
 
 Using HTML5 file upload to check if PDF contains tags.
 
+## Running locally
+
+1. Clone repo
+2. Run `npm install -g gulp-cli` to install Gulp CLI
+3. Run `npm install` to install Gulp and Node dependencies
+4. Run `gulp` to lint JS, serve and watch locally at [http://127.0.0.1:4000](http://127.0.0.1:4000)
+
 ## References
 
 - [https://blog.idrsolutions.com/2013/07/check-if-a-pdf-is-valid-using-html5-file-api/](https://blog.idrsolutions.com/2013/07/check-if-a-pdf-is-valid-using-html5-file-api/)
