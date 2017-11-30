@@ -23,8 +23,7 @@
       markup = "<strong>Not a valid PDF file</strong>";
       createDiv("report", "default", markup);
       return false;
-    }
-    else {
+    } else {
       markup = "<span class='attribute'>PDF Version:</span> <strong>" + matchHeader[1] + "</strong>";
       createDiv("report", "default", markup);
       return true;
@@ -51,6 +50,7 @@
     var regexLang = /Lang((<|\()\S*(>|\)))/g;
     var matchLang = regexLang.exec(fileData);
     if (!!matchLang) {
+      // Handle hex encoding
       if (matchLang[1] === "<656E2D5553>") {
         matchLang[1] = "(en-US)";
       }
