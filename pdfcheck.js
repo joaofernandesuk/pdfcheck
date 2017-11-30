@@ -65,7 +65,7 @@
   // Check MarkInfo exists and whether true or false
   function findMark(fileData) {
     var markup;
-    var regexMarked = /\/MarkInfo<<\/Marked (true|false)/g;
+    var regexMarked = /<<\/Marked (true|false)/g;
     var matchMarked = regexMarked.exec(fileData);
     if (!!matchMarked) {
       if (matchMarked[1] === "true") {
