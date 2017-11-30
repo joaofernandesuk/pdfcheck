@@ -1,11 +1,3 @@
-_site/
-.sass-cache/
-_drafts/
-node_modules/
-
-.jekyll-metadata
-Gemfile.lock
-
 .DS_Store
 .DS_Store?
 ._*
