@@ -7,11 +7,12 @@
   <link rel="stylesheet" href="pdfcheck.css">
 </head>
 <body>
-<div class="ch-banner" style="background-color:#7ac142;margin:0;position:relative;height:36px;margin:-1em -2em 2em;">
+<div class="ch-banner" style="background-color:#7ac142;margin:0;position:relative;height:36px;margin:-1em 0 0;">
   <a href="https://communicatehealth.com" style="position:absolute;top:0;left:0;"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 200 200"><path fill="#FFFFFF" d="M65.7 16.7v38.1H27.6v30.5h38.1v38.2h30.5V85.3h38.1V54.8H96.2V16.7z"/><path fill="#FFFFFF" d="M110.3 16.7V32h46.9v76.2h-22.9v-8.8h-15.2v8.8h-8.8v15.3h8.8v22.8H42.8V99.4H27.6v62.2h15.2v21.7l21.8-21.7h69.7v-38.1h7.5l21.9 21.7v-21.7h8.7V16.7z"/></svg></a>
   <a href="/" style="position:absolute;top:8px;left:40px;color:#fff;">Developer Blog</a>
 </div>
 
+<div class="container">
   <h1>&lt;pdfcheck&gt;</h1>
   <p>Check to see if PDFs are tagged. This is not a guarantee of accessibility, but a quick indicator of inaccessibility.</p>
   <form class="box">
@@ -20,6 +21,72 @@
     <label for="file"><strong>Choose file(s)</strong><span> or drag them here</span>.</label>
   </form>
   <div id="report"></div>
+</div>
+
+<div class="help">
+  <h2>pdfcheck notes</h2>
+  <h3 id="help-tagged">Tagged</h3>
+  <p>Possible values:</p>
+  <p class="success"><span class='attribute'>Tagged</span> <strong>Yes (# tags)</strong></p>
+  <p class="failure"><span class='attribute'>Tagged</span> <strong>No</strong></p>
+  <h4>Details</h4>
+  <p>This check indicates that tags are present in the document. <strong>If no tags are present, the file is absolutely not 508 compliant.</strong> This check doesn't determine if existing tags are correct.</p>
+
+  <hr>
+
+  <h3 id="help-language">Language</h3>
+  <p>Possible values:</p>
+  <p class="success"><span class='attribute'>Language</span> <strong>(Language abbreviation)</strong></p>
+  <p class="failure"><span class='attribute'>Language</span> <strong>Not set</strong></p>
+
+  <h4>Details</h4>
+  <p>All documents should have the language attribute set. Correct values for English documents are  <strong>(en)</strong> or <strong>(en-US)</strong>.</p>
+  <p>To set the language in Acrobat Pro DC, go to:<br>
+    File &gt; Properties &gt; Advanced tab &gt; Reading Options &gt; Language drop down</p>
+
+  <hr>
+
+  <h3 id="help-marked">Marked</h3>
+  <p>Possible values:</p>
+  <p class="success"><span class='attribute'>Marked</span> <strong>True</strong></p>
+  <p class="warning"><span class='attribute'>Marked</span> <strong>False</strong></p>
+  <p class="failure"><span class='attribute'>Marked</span> <strong>No</strong></p>
+
+  <h4>Details</h4>
+  <p>In the <a href="https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf">official ISO PDF-1.7 specification</a>, on page 574:</p>
+  <blockquote>
+    <p>A Tagged PDF document shall also contain a mark information dictionary (see Table 321) with a value of true for the Marked entry.</p>
+  </blockquote>
+
+  <p><a href="https://stackoverflow.com/questions/10775114/how-to-tell-whether-a-pdf-is-tagged#10775594">Check out more info about Marked on Stack Overflow</a>.</p>
+
+  <hr>
+
+  <h3 id="help-pdfua">PDF/UA identifier</h3>
+  <p>Possible values:</p>
+  <p class="success"><span class='attribute'>PDF/UA identifier</span> <strong>Yes</strong></p>
+  <p class="failure"><span class='attribute'>PDF/UA identifier</span> <strong>No</strong></p>
+  <h4>Details</h4>
+  <p>From <a href="https://taggedpdf.com/508-pdf-help-center/pdfua-identifier-missing/">taggedpdf.com</a>:</p>
+  <blockquote>
+    <p>The PDF/UA ID attests that the PDF is ISO 14289 (PDF/UA) compliant. It should be added as the final remediation step; otherwise you would kind of be fibbing.</p>
+  </blockquote>
+  <p><a href="https://www.youtube.com/watch?v=OCbaSQ73zn0">Watch a screencast showing how to fix this issue using Adobe Acrobat Pro DC</a>.</p>
+
+  <hr>
+
+  <h3 id="help-title">Document Title</h3>
+  <p>Possible values:</p>
+  <p class="success"><span class='attribute'>Display Doc Title</span> <strong>True</strong></p>
+  <p class="warning"><span class='attribute'>Display Doc Title</span> <strong>False</strong></p>
+  <p class="warning"><span class='attribute'>DC Title found</span> <strong>Document title</strong></p>
+  <p class="failure"><span class='attribute'>Display Doc Title</span> <strong>not set</strong></p>
+  <h4>Details</h4>
+  <p>A compliant PDF will display the document's title in Acrobat's title bar. If a DC title is present, the file requires manual review in Acrobat.</p>
+  <p>To display the document title in Adobe Acrobat Pro DC:<br>
+    File &gt; Properties &gt; Initial View tab &gt; Window Options &gt; Show: &gt; select Document Title</p>
+  <p><a href="https://taggedpdf.com/508-pdf-help-center/displaydoctitle-key-is-not-set-to-true/">Read more about displaying document titles on taggedpdf.com</a>.</p>
+</div>
 
   <script type="text/javascript" src="pdfcheck.js"></script>
 </body>

@@ -36,10 +36,10 @@
     var regexTree = /StructTreeRoot\s(\d*)\s(\d*)/g;
     var matchTree = regexTree.exec(fileData);
     if (!!matchTree) {
-      markup = "<span class='attribute'>Tagged:</span> <strong>Yes (" + matchTree[1] + " tags)</strong>";
+      markup = "<span class='attribute'>Tagged <a href='#help-tagged' class='more-info'>?</a></span> <strong>Yes (" + matchTree[1] + " tags)</strong>";
       createDiv("report", "success", markup);
     } else {
-      markup = "<span class='attribute'>Tagged:</span> <strong>No</strong>";
+      markup = "<span class='attribute'>Tagged <a href='#help-tagged' class='more-info'>?</a></span> <strong>No</strong>";
       createDiv("report", "failure", markup);
     }
   }
@@ -54,10 +54,10 @@
       if (matchLang[1] === "<656E2D5553>") {
         matchLang[1] = "(en-US)";
       }
-      markup = "<span class='attribute'>Language:</span> <strong>" + matchLang[1] + "</strong>";
+      markup = "<span class='attribute'>Language <a href='#help-language' class='more-info'>?</a></span> <strong>" + matchLang[1] + "</strong>";
       createDiv("report", "success", markup);
     } else {
-      markup = "<span class='attribute'>Language:</span> <strong>not set</strong>";
+      markup = "<span class='attribute'>Language <a href='#help-language' class='more-info'>?</a></span> <strong>not set</strong>";
       createDiv("report", "failure", markup);
     }
   }
@@ -69,14 +69,14 @@
     var matchMarked = regexMarked.exec(fileData);
     if (!!matchMarked) {
       if (matchMarked[1] === "true") {
-        markup = "<span class='attribute'>Marked:</span> <strong>True</strong>";
+        markup = "<span class='attribute'>Marked <a href='#help-marked' class='more-info'>?</a></span> <strong>True</strong>";
         createDiv("report", "success", markup);
       } else {
-        markup = "<span class='attribute'>Marked:</span> <strong>False</strong>";
+        markup = "<span class='attribute'>Marked <a href='#help-marked' class='more-info'>?</a></span> <strong>False</strong>";
         createDiv("report", "warning", markup);
       }
     } else {
-      markup = "<span class='attribute'>Marked:</span> <strong>No</strong>";
+      markup = "<span class='attribute'>Marked <a href='#help-marked' class='more-info'>?</a></span> <strong>No</strong>";
       createDiv("report", "failure", markup);
     }
   }
@@ -87,10 +87,10 @@
     var regexPDFUA = /<pdfaSchema:prefix>pdfuaid<\/pdfaSchema:prefix>/g;
     var matchPDFUA = regexPDFUA.exec(fileData);
     if (!!matchPDFUA) {
-      markup = "<span class='attribute'>PDF/UA identifier:</span> <strong>Yes</strong>";
+      markup = "<span class='attribute'>PDF/UA identifier <a href='#help-pdfua' class='more-info'>?</a></span> <strong>Yes</strong>";
       createDiv("report", "success", markup);
     } else {
-      markup = "<span class='attribute'>PDF/UA identifier:</span> <strong>No</strong>";
+      markup = "<span class='attribute'>PDF/UA identifier <a href='#help-pdfua' class='more-info'>?</a></span> <strong>No</strong>";
       createDiv("report", "failure", markup);
     }
   }
@@ -104,17 +104,17 @@
     var matchDCTitle = regexDCTitle.exec(fileData);
     if (!!matchTitle) {
       if (matchTitle[1] === "true") {
-        markup = "<span class='attribute'>Display Doc Title:</span> <strong>True</strong>";
+        markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span> <strong>True</strong>";
         createDiv("report", "success", markup);
       } else {
-        markup = "<span class='attribute'>Display Doc Title:</span> <strong>False</strong>";
+        markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span> <strong>False</strong>";
         createDiv("report", "warning", markup);
       }
     } else if (!!matchDCTitle) {
-      markup = "<span class='attribute'>DC Title found - (manually inspect title in Acrobat):</span> <strong>" + matchDCTitle[1] + "</strong>";
+      markup = "<span class='attribute'>DC Title found <a href='#help-title' class='more-info'>?</a></span> <strong>" + matchDCTitle[1] + "</strong>";
       createDiv("report", "warning", markup);
     } else {
-      markup = "<span class='attribute'>Display Doc Title</span> <strong>not set</strong>";
+      markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span> <strong>not set</strong>";
       createDiv("report", "failure", markup);
     }
   }
