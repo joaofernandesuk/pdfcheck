@@ -27,8 +27,8 @@
   <h2>pdfcheck notes</h2>
   <h3 id="help-tagged">Tagged</h3>
   <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Tagged</span> <strong>Yes (# tags)</strong></p>
-  <p class="failure"><span class='attribute'>Tagged</span> <strong>No</strong></p>
+  <p class="success"><span class='attribute'>Tagged</span><span class='result'><strong>Yes (# tags)</strong></span></p>
+  <p class="failure"><span class='attribute'>Tagged</span><span class='result'><strong>No</strong></span></p>
   <h4>Details</h4>
   <p>This check indicates that tags are present in the document. <strong>If no tags are present, the file is absolutely not 508 compliant.</strong> This check doesn't determine if existing tags are correct.</p>
 
@@ -36,8 +36,8 @@
 
   <h3 id="help-language">Language</h3>
   <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Language</span> <strong>(Language abbreviation)</strong></p>
-  <p class="failure"><span class='attribute'>Language</span> <strong>Not set</strong></p>
+  <p class="success"><span class='attribute'>Language</span><span class='result'><strong>(Language abbreviation)</strong></span></p>
+  <p class="failure"><span class='attribute'>Language</span><span class='result'><strong>Not set</strong></span></p>
 
   <h4>Details</h4>
   <p>All documents should have the language attribute set. Correct values for English documents are  <strong>(en)</strong> or <strong>(en-US)</strong>.</p>
@@ -48,9 +48,9 @@
 
   <h3 id="help-marked">Marked</h3>
   <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Marked</span> <strong>True</strong></p>
-  <p class="warning"><span class='attribute'>Marked</span> <strong>False</strong></p>
-  <p class="failure"><span class='attribute'>Marked</span> <strong>No</strong></p>
+  <p class="success"><span class='attribute'>Marked</span><span class='result'><strong>True</strong></span></p>
+  <p class="warning"><span class='attribute'>Marked</span><span class='result'><strong>False</strong></span></p>
+  <p class="failure"><span class='attribute'>Marked</span><span class='result'><strong>No</strong></span></p>
 
   <h4>Details</h4>
   <p>In the <a href="https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf">official ISO PDF-1.7 specification</a>, on page 574:</p>
@@ -64,8 +64,8 @@
 
   <h3 id="help-pdfua">PDF/UA identifier</h3>
   <p>Possible values:</p>
-  <p class="success"><span class='attribute'>PDF/UA identifier</span> <strong>Yes</strong></p>
-  <p class="failure"><span class='attribute'>PDF/UA identifier</span> <strong>No</strong></p>
+  <p class="success"><span class='attribute'>PDF/UA identifier</span><span class='result'><strong>Yes</strong></span></p>
+  <p class="failure"><span class='attribute'>PDF/UA identifier</span><span class='result'><strong>No</strong></span></p>
   <h4>Details</h4>
   <p>From <a href="https://taggedpdf.com/508-pdf-help-center/pdfua-identifier-missing/">taggedpdf.com</a>:</p>
   <blockquote>
@@ -77,10 +77,10 @@
 
   <h3 id="help-title">Document Title</h3>
   <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Display Doc Title</span> <strong>True</strong></p>
-  <p class="warning"><span class='attribute'>Display Doc Title</span> <strong>False</strong></p>
-  <p class="warning"><span class='attribute'>DC Title found</span> <strong>Document title</strong></p>
-  <p class="failure"><span class='attribute'>Display Doc Title</span> <strong>not set</strong></p>
+  <p class="success"><span class='attribute'>Display Doc Title</span><span class='result'><strong>True</strong></span></p>
+  <p class="warning"><span class='attribute'>Display Doc Title</span><span class='result'><strong>False</strong></span></p>
+  <p class="warning"><span class='attribute'>DC Title found</span><span class='result'><strong>Document title</strong></span></p>
+  <p class="failure"><span class='attribute'>Display Doc Title</span><span class='result'><strong>not set</strong></span></p>
   <h4>Details</h4>
   <p>A compliant PDF will display the document's title in Acrobat's title bar. If a DC title is present, the file requires manual review in Acrobat.</p>
   <p>To display the document title in Adobe Acrobat Pro DC:<br>
