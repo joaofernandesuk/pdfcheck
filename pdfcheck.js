@@ -5,11 +5,11 @@
     buildHeading(file, fileNumber);
     var valid = validatePDF(fileData);
     if (valid === true) {
+      findTitle(fileData);
       findTags(fileData);
       findLang(fileData);
       findMark(fileData);
       findUA(fileData);
-      findTitle(fileData);
     }
   }
 
@@ -90,31 +90,31 @@
       markup = "<span class='attribute'>PDF/UA identifier <a href='#help-pdfua' class='more-info'>?</a></span><span class='result'><strong>Yes</strong></span>";
       createDiv("report", "success", markup);
     } else {
-      markup = "<span class='attribute'>PDF/UA identifier <a href='#help-pdfua' class='more-info'>?</a></span><span class='result'><strong>No</strong></span>";
-      createDiv("report", "failure", markup);
+      markup = "<span class='attribute'>PDF/UA identifier <a href='#help-pdfua' class='more-info'>?</a></span><span class='result'><strong>Not set</strong></span>";
+      createDiv("report", "warning", markup);
     }
   }
 
   // Check for DisplayDocTitle and dc:title
   function findTitle(fileData) {
     var markup;
-    var regexTitle = /\/DisplayDocTitle (true|false)/g;
+    var regexTitle = /<dc:title>[\s\S]*?<rdf:Alt>([\s\S]*?)<\/rdf:Alt>[\s\S]*?<\/dc:title>/g;
     var matchTitle = regexTitle.exec(fileData);
-    var regexDCTitle = /<dc:title>([\s\S]*?)<\/dc:title>/g;
-    var matchDCTitle = regexDCTitle.exec(fileData);
+    var emptyTag = /<rdf:li xml:lang="x-default"\/>/g;
+    var matchEmpty = emptyTag.exec(matchTitle);
+
     if (!!matchTitle) {
-      if (matchTitle[1] === "true") {
-        markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>True</strong></span>";
-        createDiv("report", "success", markup);
-      } else {
-        markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>False</strong></span>";
+      if (!!matchEmpty) {
+        markup = "<span class='attribute'>Document Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>Empty</strong></span>";
         createDiv("report", "warning", markup);
       }
-    } else if (!!matchDCTitle) {
-      markup = "<span class='attribute'>DC Title found <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>" + matchDCTitle[1] + "</strong></span>";
-      createDiv("report", "warning", markup);
-    } else {
-      markup = "<span class='attribute'>Display Doc Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>not set</strong></span>";
+      else {
+        markup = "<span class='attribute'>Document Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>" + matchTitle[1] + "</strong></span>";
+        createDiv("report", "default", markup);
+      }
+    }
+    else {
+      markup = "<span class='attribute'>Document Title <a href='#help-title' class='more-info'>?</a></span><span class='result'><strong>Not set</strong></span>";
       createDiv("report", "failure", markup);
     }
   }
