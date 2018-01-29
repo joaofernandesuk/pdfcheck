@@ -13,10 +13,10 @@
   },
   "main": "index.html",
   "devDependencies": {
-    "browser-sync": "^2.18.10",
+    "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
-    "gulp-jshint": "^2.0.4",
-    "jshint": "^2.9.4",
+    "gulp-jshint": "^2.1.0",
+    "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1"
   },
   "license": "MIT",
