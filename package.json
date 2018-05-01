@@ -13,7 +13,7 @@
   },
   "main": "index.html",
   "devDependencies": {
-    "browser-sync": "^2.23.6",
+    "browser-sync": "^2.24.1",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.1.0",
     "jshint": "^2.9.5",
