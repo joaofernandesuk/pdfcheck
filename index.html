@@ -1,90 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>pdfcheck</title>
+  <title>PDFcheck✓</title>
   <link rel="stylesheet" href="pdfcheck.css">
 </head>
 <body>
-<div class="ch-banner" style="background-color:#7ac142;margin:0;position:relative;height:36px;margin:-1em 0 0;">
-  <a href="https://communicatehealth.com" style="position:absolute;top:0;left:0;"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 200 200"><path fill="#FFFFFF" d="M65.7 16.7v38.1H27.6v30.5h38.1v38.2h30.5V85.3h38.1V54.8H96.2V16.7z"/><path fill="#FFFFFF" d="M110.3 16.7V32h46.9v76.2h-22.9v-8.8h-15.2v8.8h-8.8v15.3h8.8v22.8H42.8V99.4H27.6v62.2h15.2v21.7l21.8-21.7h69.7v-38.1h7.5l21.9 21.7v-21.7h8.7V16.7z"/></svg></a>
-  <a href="/" style="position:absolute;top:8px;left:40px;color:#fff;">Developer Blog</a>
+
+<header>
+  <h1>PDFcheck✓</h1>
+  <div class="info">
+    <p>Quickly check PDF files for accessibility red flags. <a href="https://github.com/communicatehealth/pdfcheck">PDFcheck on GitHub</a></p>
+  </div>
+</header>
+
+<div class="wrap">
+  <section>
+    <form class="box">
+      <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"/></svg>
+      <input type="file" name="files[]" id="file" class="upload-input" data-multiple-caption="{count} files scanned" multiple />
+      <label for="file"><strong>Choose file(s)</strong><span> or drag them here</span>.</label>
+    </form>
+    <div id="report"></div>
+  </section>
+  <section class="help">
+    <h2>PDFcheck checks<span class="more-info">i</span></h2>
+    <article>
+      <h3 id="help-tagged">Tagged</h3>
+      <p>This check indicates that tags are present in the document. <strong>If no tags are present, the file is absolutely not 508 compliant.</strong> This check doesn't determine if existing tags are correct.</p>
+      <h4>Possible values:</h4>
+      <p class="flag success"><span>Tagged</span> <strong>Yes (# tags)</strong></p>
+      <p class="flag failure"><span>Tagged</span> <strong>No</strong></p>
+    </article>
+    <article>
+      <h3 id="help-language">Language</h3>
+      <p>All documents should have the language attribute set. Correct values for English documents are  <strong>(en)</strong> or <strong>(en-US)</strong>.</p>
+      <p>To set the language in Acrobat Pro DC, go to:<br>
+        File &gt; Properties &gt; Advanced tab &gt; Reading Options &gt; Language drop down</p>
+      <h4>Possible values:</h4>
+      <p class="flag success"><span>Language</span> <strong>(Language abbreviation)</strong></p>
+      <p class="flag failure"><span>Language</span> <strong>Not set</strong></p>
+    </article>
+    <article>
+      <h3 id="help-marked">Marked</h3>
+      <p>In the <a href="https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf">official ISO PDF-1.7 specification [PDF - 9 MB]</a>, on page 574:</p>
+      <blockquote>
+        <p>A Tagged PDF document shall also contain a mark information dictionary (see Table 321) with a value of true for the Marked entry.</p>
+      </blockquote>
+      <p><a href="https://stackoverflow.com/questions/10775114/how-to-tell-whether-a-pdf-is-tagged#10775594">Check out more info about Marked on Stack Overflow</a>.</p>
+      <h4>Possible values:</h4>
+      <p class="flag success"><span>Marked</span> <strong>True</strong></p>
+      <p class="flag warning"><span>Marked</span> <strong>False</strong></p>
+      <p class="flag failure"><span>Marked</span> <strong>No</strong></p>
+    </article>
+    <article>
+      <h3 id="help-pdfua">PDF/UA identifier</h3>
+      <p>This checkpoint isn&rsquo;t a deal breaker. From <a href="https://taggedpdf.com/508-pdf-help-center/pdfua-identifier-missing/">taggedpdf.com</a>:</p>
+      <blockquote>
+        <p>The PDF/UA ID attests that the PDF is ISO 14289 (PDF/UA) compliant. It should be added as the final remediation step; otherwise you would kind of be fibbing.</p>
+      </blockquote>
+      <p><a href="https://www.youtube.com/watch?v=OCbaSQ73zn0">Watch a screencast showing how to fix this issue using Adobe Acrobat Pro DC</a>.</p>
+      <h4>Possible values:</h4>
+      <p class="flag success"><span>PDF/UA identifier</span> <strong>Yes</strong></p>
+      <p class="flag warning"><span>PDF/UA identifier</span> <strong>Not set</strong></p>
+    </article>
+    <article>
+      <h3 id="help-title">Document Title</h3>
+      <p>A compliant PDF will have a readable title specified in File > Properties.</p>
+      <h4>Possible values:</h4>
+      <p class="flag success"><span>Document Title</span> <strong>Document title</strong></p>
+      <p class="flag warning"><span>Document Title</span> <strong>Empty</strong></p>
+      <p class="flag warning"><span>Document Title</span> <strong>Not set</strong></p>
+    </article>
+  </section>
 </div>
 
-<div class="container">
-  <h1>&lt;pdfcheck&gt;</h1>
-  <p>Check to see if PDFs are tagged. This is not a guarantee of accessibility, but a quick indicator of inaccessibility.</p>
-  <form class="box">
-    <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43"><path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"/></svg>
-    <input type="file" name="files[]" id="file" class="upload-input" data-multiple-caption="{count} files selected" multiple />
-    <label for="file"><strong>Choose file(s)</strong><span> or drag them here</span>.</label>
-  </form>
-  <div id="report"></div>
-</div>
+<script src="pdfcheck.js"></script>
 
-<div class="help">
-  <h2>pdfcheck notes</h2>
-  <h3 id="help-tagged">Tagged</h3>
-  <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Tagged</span><span class='result'><strong>Yes (# tags)</strong></span></p>
-  <p class="failure"><span class='attribute'>Tagged</span><span class='result'><strong>No</strong></span></p>
-  <h4>Details</h4>
-  <p>This check indicates that tags are present in the document. <strong>If no tags are present, the file is absolutely not 508 compliant.</strong> This check doesn't determine if existing tags are correct.</p>
-
-  <hr>
-
-  <h3 id="help-language">Language</h3>
-  <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Language</span><span class='result'><strong>(Language abbreviation)</strong></span></p>
-  <p class="failure"><span class='attribute'>Language</span><span class='result'><strong>Not set</strong></span></p>
-
-  <h4>Details</h4>
-  <p>All documents should have the language attribute set. Correct values for English documents are  <strong>(en)</strong> or <strong>(en-US)</strong>.</p>
-  <p>To set the language in Acrobat Pro DC, go to:<br>
-    File &gt; Properties &gt; Advanced tab &gt; Reading Options &gt; Language drop down</p>
-
-  <hr>
-
-  <h3 id="help-marked">Marked</h3>
-  <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Marked</span><span class='result'><strong>True</strong></span></p>
-  <p class="warning"><span class='attribute'>Marked</span><span class='result'><strong>False</strong></span></p>
-  <p class="failure"><span class='attribute'>Marked</span><span class='result'><strong>No</strong></span></p>
-
-  <h4>Details</h4>
-  <p>In the <a href="https://www.adobe.com/content/dam/acom/en/devnet/acrobat/pdfs/PDF32000_2008.pdf">official ISO PDF-1.7 specification</a>, on page 574:</p>
-  <blockquote>
-    <p>A Tagged PDF document shall also contain a mark information dictionary (see Table 321) with a value of true for the Marked entry.</p>
-  </blockquote>
-
-  <p><a href="https://stackoverflow.com/questions/10775114/how-to-tell-whether-a-pdf-is-tagged#10775594">Check out more info about Marked on Stack Overflow</a>.</p>
-
-  <hr>
-
-  <h3 id="help-pdfua">PDF/UA identifier</h3>
-  <p>Possible values:</p>
-  <p class="success"><span class='attribute'>PDF/UA identifier</span><span class='result'><strong>Yes</strong></span></p>
-  <p class="warning"><span class='attribute'>PDF/UA identifier</span><span class='result'><strong>Not set</strong></span></p>
-  <h4>Details</h4>
-  <p>From <a href="https://taggedpdf.com/508-pdf-help-center/pdfua-identifier-missing/">taggedpdf.com</a>:</p>
-  <blockquote>
-    <p>The PDF/UA ID attests that the PDF is ISO 14289 (PDF/UA) compliant. It should be added as the final remediation step; otherwise you would kind of be fibbing.</p>
-  </blockquote>
-  <p>This checkpoint isn&rsquo;t a deal breaker.</p>
-  <p><a href="https://www.youtube.com/watch?v=OCbaSQ73zn0">Watch a screencast showing how to fix this issue using Adobe Acrobat Pro DC</a>.</p>
-
-  <hr>
-
-  <h3 id="help-title">Document Title</h3>
-  <p>Possible values:</p>
-  <p class="success"><span class='attribute'>Document Title</span><span class='result'><strong>Document title</strong></span></p>
-  <p class="warning"><span class='attribute'>Document Title</span><span class='result'><strong>Empty</strong></span></p>
-  <p class="warning"><span class='attribute'>Document Title</span><span class='result'><strong>Not set</strong></span></p>
-  <h4>Details</h4>
-  <p>A compliant PDF will have a readable title specified in File > Properties.</p>
-</div>
-
-  <script type="text/javascript" src="pdfcheck.js"></script>
 </body>
 </html>
