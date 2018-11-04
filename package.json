@@ -1,24 +1,22 @@
 {
-  "name": "pdfcheck",
+  "name": "PDFcheck",
   "version": "0.0.0",
-  "description": "Localized PDF attribute reporter",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/communicatehealth/pdfcheck.git"
-  },
-  "bugs": "https://github.com/communicatehealth/pdfcheck/issues/",
-  "homepage": "https://communicatehealth.github.io/pdfcheck/",
-  "scripts": {
-    "test": "gulp build"
-  },
+  "description": "Check PDF files for accessibility features",
   "main": "index.html",
+  "private": true,
   "devDependencies": {
-    "browser-sync": "^2.24.1",
-    "gulp": "^3.9.1",
-    "gulp-jshint": "^2.1.0",
-    "jshint": "^2.9.5",
-    "jshint-stylish": "^2.2.1"
+    "browser-sync": "^2.26.3",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "stylelint": "^9.7.1",
+    "stylelint-config-recommended": "^2.1.0"
   },
-  "license": "MIT",
-  "author": "CommunicateHealth"
+  "scripts": {
+    "eslint": "eslint *.js --fix",
+    "stylelint": "stylelint '*.css' --fix",
+    "serve": "browser-sync start --server --files '*.css, *.js, *.html'",
+    "test": "npm run stylelint && npm run eslint",
+    "work": "npm run test && npm run serve"
+  }
 }

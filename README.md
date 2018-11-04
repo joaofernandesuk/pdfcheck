@@ -1,19 +1,15 @@
-# pdfcheck [![Build Status](https://travis-ci.org/CommunicateHealth/pdfcheck.svg?branch=master)](https://travis-ci.org/CommunicateHealth/pdfcheck)
+# PDFcheck
 
-[https://communicatehealth.github.io/pdfcheck](https://communicatehealth.github.io/pdfcheck)
-
-Using HTML5 file upload to check if PDF contains tags.
+Quickly check PDF files for accessibility red flags. Not guarantee of accessibility, but a fast indication of inaccessibility.
 
 ## Running locally
 
-1. Clone repo
-2. Run `npm install -g gulp-cli` to install Gulp CLI
-3. Run `npm install` to install Gulp and Node dependencies
-4. Run `gulp` to lint JS, serve and watch locally at [http://127.0.0.1:4000](http://127.0.0.1:4000)
+1. `npm install`
+2. `npm run work`
 
 ## References
 
-- [https://blog.idrsolutions.com/2013/07/check-if-a-pdf-is-valid-using-html5-file-api/](https://blog.idrsolutions.com/2013/07/check-if-a-pdf-is-valid-using-html5-file-api/)
-- [https://stackoverflow.com/questions/16273239/tagged-pdf-value-from-adobes-document-properties-using-itextsharp](https://stackoverflow.com/questions/16273239/tagged-pdf-value-from-adobes-document-properties-using-itextsharp)
-- [https://stackoverflow.com/a/13975217](https://stackoverflow.com/a/13975217)
-- [https://css-tricks.com/drag-and-drop-file-uploading/](https://css-tricks.com/drag-and-drop-file-uploading/)
+- [Using the HTML5 File API to validate PDF Files](https://blog.idrsolutions.com/2013/07/check-if-a-pdf-is-valid-using-html5-file-api/)
+- [Tagged PDF indicators in file dictionary](https://stackoverflow.com/a/16275070)
+- [Reading multiple files one-by-one with FileReader API](https://stackoverflow.com/a/13975217)
+- [Drag and drop file uploading](https://css-tricks.com/drag-and-drop-file-uploading/)
