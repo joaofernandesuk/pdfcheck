@@ -1,10 +1,9 @@
 (function () {
-  function createDiv(parent, className, innerHTML) {
+  function addFlag(className, innerHTML) {
     var tempNode = document.createElement('p');
-    tempNode.className = 'flag';
-    tempNode.className += ' ' + className;
+    tempNode.className = 'flag ' + className;
     tempNode.innerHTML = innerHTML;
-    document.getElementById(parent).appendChild(tempNode);
+    document.getElementById('report').appendChild(tempNode);
   }
 
   // Check if valid PDF file (read first 8 bytes, match regex)
@@ -15,11 +14,11 @@
     var matchHeader = regexHeader.exec(dataHeader);
     if (!matchHeader) {
       markup = '<strong>Not a valid PDF file</strong>';
-      createDiv('report', 'default', markup);
+      addFlag('report', 'default', markup);
       return false;
     }
     markup = '<span>PDF Version:</span> <strong>' + matchHeader[1] + '</strong>';
-    createDiv('report', 'default', markup);
+    addFlag('report', 'default', markup);
     return true;
   }
 
@@ -30,10 +29,10 @@
     var matchTree = regexTree.exec(fileData);
     if (matchTree) {
       markup = '<span>Tagged <a href="#help-tagged" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Yes (' + matchTree[1] + ' tags)</strong>';
-      createDiv('report', 'success', markup);
+      addFlag('report', 'success', markup);
     } else {
       markup = '<span>Tagged <a href="#help-tagged" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>No</strong>';
-      createDiv('report', 'failure', markup);
+      addFlag('report', 'failure', markup);
     }
   }
 
@@ -48,10 +47,10 @@
         matchLang[1] = '(en-US)';
       }
       markup = '<span>Language <a href="#help-language" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>' + matchLang[1] + '</strong>';
-      createDiv('report', 'success', markup);
+      addFlag('report', 'success', markup);
     } else {
       markup = '<span>Language <a href="#help-language" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>not set</strong>';
-      createDiv('report', 'failure', markup);
+      addFlag('report', 'failure', markup);
     }
   }
 
@@ -63,14 +62,14 @@
     if (matchMarked) {
       if (matchMarked[1] === 'true') {
         markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>True</strong>';
-        createDiv('report', 'success', markup);
+        addFlag('report', 'success', markup);
       } else {
         markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>False</strong>';
-        createDiv('report', 'warning', markup);
+        addFlag('report', 'warning', markup);
       }
     } else {
       markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>No</strong>';
-      createDiv('report', 'failure', markup);
+      addFlag('report', 'failure', markup);
     }
   }
 
@@ -81,10 +80,10 @@
     var matchPDFUA = regexPDFUA.exec(fileData);
     if (matchPDFUA) {
       markup = '<span>PDF/UA identifier <a href="#help-pdfua" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Yes</strong>';
-      createDiv('report', 'success', markup);
+      addFlag('report', 'success', markup);
     } else {
       markup = '<span>PDF/UA identifier <a href="#help-pdfua" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Not set</strong>';
-      createDiv('report', 'warning', markup);
+      addFlag('report', 'warning', markup);
     }
   }
 
@@ -99,14 +98,14 @@
     if (matchTitle) {
       if (matchEmpty) {
         markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Empty</strong>';
-        createDiv('report', 'warning', markup);
+        addFlag('report', 'warning', markup);
       } else {
         markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>' + matchTitle[1] + '</strong>';
-        createDiv('report', 'default', markup);
+        addFlag('report', 'default', markup);
       }
     } else {
       markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Not set</strong>';
-      createDiv('report', 'failure', markup);
+      addFlag('report', 'failure', markup);
     }
   }
 
@@ -124,7 +123,7 @@
     }
     fileLabel = '[' + fileExt + ' - ' + fileSize + fileSizeSuffix + ']';
     markup = fileNumber + '. ' + file.name + ' <small>' + fileLabel + '</small>';
-    createDiv('report', 'title', markup);
+    addFlag('report', 'title', markup);
   }
 
   function pdfCheck(file, fileData, fileNumber) {
@@ -175,14 +174,8 @@
     var forms = document.querySelectorAll('.box');
     Array.prototype.forEach.call(forms, function (form) {
       var input = form.querySelector('input[type="file"]');
-
-
       var label = form.querySelector('label');
-
-
       var droppedFiles = false;
-
-
       var showFiles = function (files) {
         label.textContent = files.length > 1 ? (input.getAttribute('data-multiple-caption') || '').replace('{count}', files.length) : files[0].name;
       };
