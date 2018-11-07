@@ -14,11 +14,11 @@
     var matchHeader = regexHeader.exec(dataHeader);
     if (!matchHeader) {
       markup = '<strong>Not a valid PDF file</strong>';
-      addFlag('report', 'default', markup);
+      addFlag('default', markup);
       return false;
     }
     markup = '<span>PDF Version:</span> <strong>' + matchHeader[1] + '</strong>';
-    addFlag('report', 'default', markup);
+    addFlag('default', markup);
     return true;
   }
 
@@ -29,10 +29,10 @@
     var matchTree = regexTree.exec(fileData);
     if (matchTree) {
       markup = '<span>Tagged <a href="#help-tagged" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Yes (' + matchTree[1] + ' tags)</strong>';
-      addFlag('report', 'success', markup);
+      addFlag('success', markup);
     } else {
       markup = '<span>Tagged <a href="#help-tagged" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>No</strong>';
-      addFlag('report', 'failure', markup);
+      addFlag('failure', markup);
     }
   }
 
@@ -47,10 +47,10 @@
         matchLang[1] = '(en-US)';
       }
       markup = '<span>Language <a href="#help-language" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>' + matchLang[1] + '</strong>';
-      addFlag('report', 'success', markup);
+      addFlag('success', markup);
     } else {
       markup = '<span>Language <a href="#help-language" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>not set</strong>';
-      addFlag('report', 'failure', markup);
+      addFlag('failure', markup);
     }
   }
 
@@ -62,14 +62,14 @@
     if (matchMarked) {
       if (matchMarked[1] === 'true') {
         markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>True</strong>';
-        addFlag('report', 'success', markup);
+        addFlag('success', markup);
       } else {
         markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>False</strong>';
-        addFlag('report', 'warning', markup);
+        addFlag('warning', markup);
       }
     } else {
       markup = '<span>Marked <a href="#help-marked" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>No</strong>';
-      addFlag('report', 'failure', markup);
+      addFlag('failure', markup);
     }
   }
 
@@ -80,10 +80,10 @@
     var matchPDFUA = regexPDFUA.exec(fileData);
     if (matchPDFUA) {
       markup = '<span>PDF/UA identifier <a href="#help-pdfua" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Yes</strong>';
-      addFlag('report', 'success', markup);
+      addFlag('success', markup);
     } else {
       markup = '<span>PDF/UA identifier <a href="#help-pdfua" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Not set</strong>';
-      addFlag('report', 'warning', markup);
+      addFlag('warning', markup);
     }
   }
 
@@ -98,14 +98,14 @@
     if (matchTitle) {
       if (matchEmpty) {
         markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Empty</strong>';
-        addFlag('report', 'warning', markup);
+        addFlag('warning', markup);
       } else {
         markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>' + matchTitle[1] + '</strong>';
-        addFlag('report', 'default', markup);
+        addFlag('default', markup);
       }
     } else {
       markup = '<span>Document Title <a href="#help-title" class="more-info" aria-label="more information on this check" title="more information on this check">i</a></span> <strong>Not set</strong>';
-      addFlag('report', 'failure', markup);
+      addFlag('failure', markup);
     }
   }
 
@@ -123,7 +123,7 @@
     }
     fileLabel = '[' + fileExt + ' - ' + fileSize + fileSizeSuffix + ']';
     markup = fileNumber + '. ' + file.name + ' <small>' + fileLabel + '</small>';
-    addFlag('report', 'title', markup);
+    addFlag('title', markup);
   }
 
   function pdfCheck(file, fileData, fileNumber) {
